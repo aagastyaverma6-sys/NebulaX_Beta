@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Nebula Pro | Enterprise IDE</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="vs/loader.js"></script>
+</head>
+<body>
+
+<header class="ribbon">
+  <div class="ribbon-brand">
+    <div class="logo">N</div>
+    <div class="brand-text">NEBULA <span>PRO v2.5</span></div>
+  </div>
+
+  <nav class="ribbon-tabs">
+    <button class="ribbon-tab active" onclick="switchRibbon('workspace', event)">Workspace</button>
+    <button class="ribbon-tab" onclick="switchRibbon('ai-core', event)">AI Engine</button>
+    <button class="ribbon-tab" onclick="switchRibbon('view', event)">Preview</button>
+  </nav>
+
+  <div class="ribbon-actions">
+    <select id="lang" class="ribbon-select">
+      <optgroup label="Web & Node">
+        <option value="html">Web (HTML/CSS/JS)</option>
+        <option value="63">Node.js (12.14.0)</option>
+        <option value="74">TypeScript (3.7.4)</option>
+      </optgroup>
+      <optgroup label="Systems (C/C++/Rust)">
+        <option value="48">C (GCC 7.4.0)</option>
+        <option value="52">C++ (GCC 7.4.0)</option>
+        <option value="54">C++ (GCC 9.2.0)</option>
+        <option value="73">Rust (1.40.0)</option>
+        <option value="60">Go (1.13.5)</option>
+      </optgroup>
+      <optgroup label="High-Level (Python/Java/C#)">
+        <option value="71">Python (3.8.1)</option>
+        <option value="62">Java (OpenJDK 13.0.1)</option>
+        <option value="51">C# (Mono 6.6.0.161)</option>
+        <option value="68">PHP (7.4.1)</option>
+        <option value="72">Ruby (2.7.0)</option>
+        <option value="51">C# (Mono 6.6.0.161)</option>
+      </optgroup>
+      <optgroup label="Scientific & Data">
+        <option value="80">R (4.0.0)</option>
+        <option value="78">SQLite (3.31.1)</option>
+        <option value="64">Lua (5.3.5)</option>
+        <option value="66">Octave (5.1.0)</option>
+      </optgroup>
+      <optgroup label="Legacy & Special">
+        <option value="45">Assembly (NASM 2.14.02)</option>
+        <option value="47">Basic (FBC 1.07.1)</option>
+        <option value="55">COBOL (GnuCOBOL 2.2)</option>
+        <option value="59">Fortran (GFortran 9.2.0)</option>
+        <option value="69">Prolog (GNU Prolog 1.4.5)</option>
+      </optgroup>
+      </select>
+    <button id="run-btn" class="btn-primary">DEPLOY & RUN</button>
+  </div>
+</header>
+
+<div class="tool-bar">
+  <div id="group-workspace" class="tool-group show">
+    <button id="new-file">New Module</button>
+    <button id="save-disk">Commit Changes</button>
+    <button onclick="printTerminal('[SYS] Exporting bundle...', 'info')">Export JSON</button>
+  </div>
+  <div id="group-ai-core" class="tool-group">
+    <input id="ai-key" type="password" placeholder="Gemini 3 Flash Key">
+    <button id="save-key">Auth</button>
+    <button onclick="askAICommand()">Consult AI</button>
+  </div>
+  <div id="group-view" class="tool-group">
+    <button onclick="togglePreview()">Live Overlay</button>
+    <button onclick="setTheme('midnight')">Midnight Theme</button>
+  </div>
+</div>
+
+<main class="workspace">
+  <div id="file-tabs" class="tabs-row"></div>
+  <div class="editor-container">
+    <div id="editor"></div>
+    <div id="preview-panel" class="preview-hidden">
+      <div class="preview-header">LIVE INSTANCE</div>
+      <iframe id="web-viewer"></iframe>
+    </div>
+  </div>
+
+  <div class="resizer" id="splitter"></div>
+
+  <div class="terminal-container" onclick="document.getElementById('term-input').focus()">
+    <div class="terminal-bar">
+      <div class="term-title">NEBULA SHELL</div>
+      <span class="term-clear" onclick="clearTerminal()">Flush Logs</span>
+    </div>
+    <div class="terminal-body" id="term-content"></div>
+    <div class="input-line">
+      <span class="prompt">nebula@root:~$</span>
+      <input type="text" id="term-input" spellcheck="false" autocomplete="off">
+    </div>
+  </div>
+</main>
+
+<script src="terminal.js"></script>
+<script src="judge0.js"></script>
+<script src="run.js"></script>
+<script src="ai-pro.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

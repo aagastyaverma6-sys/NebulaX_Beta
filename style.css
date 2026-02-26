@@ -1,0 +1,35 @@
+:root {
+  --bg: #0d1117; --panel: #161b22; --border: #30363d;
+  --accent: #58a6ff; --text: #c9d1d9; --success: #238636;
+}
+
+body {
+  margin: 0; padding: 0; height: 100vh; display: flex; flex-direction: column;
+  background: var(--bg); color: var(--text); font-family: sans-serif; overflow: hidden;
+}
+
+.ribbon { height: 50px; background: var(--panel); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; }
+.ribbon-tab { background: none; border: none; color: #8b949e; padding: 0 15px; cursor: pointer; border-bottom: 2px solid transparent; height: 100%; }
+.ribbon-tab.active { color: #fff; border-bottom-color: var(--accent); }
+
+.tool-bar { height: 45px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; }
+.tool-group { display: none; gap: 10px; }
+.tool-group.show { display: flex; }
+
+.workspace { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.tabs-row { display: flex; background: var(--panel); border-bottom: 1px solid var(--border); }
+.file-tab { padding: 8px 15px; font-size: 12px; border-right: 1px solid var(--border); cursor: pointer; }
+.file-tab.active { background: var(--bg); border-top: 2px solid var(--accent); }
+
+.editor-container { flex: 1; display: flex; position: relative; min-height: 0; }
+#editor { flex: 1; }
+#preview-panel { width: 40%; background: #fff; border-left: 2px solid var(--border); }
+.preview-hidden { display: none; }
+
+.terminal-container { height: 200px; background: #000; border-top: 1px solid var(--border); display: flex; flex-direction: column; }
+.terminal-body { flex: 1; padding: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; overflow-y: auto; }
+.input-line { display: flex; padding: 5px 10px; border-top: 1px solid #111; }
+#term-input { background: transparent; border: none; color: #fff; flex: 1; outline: none; }
+
+button { background: #21262d; border: 1px solid var(--border); color: #fff; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.btn-primary { background: var(--success); font-weight: bold; }
