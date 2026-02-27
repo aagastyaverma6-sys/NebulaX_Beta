@@ -5,7 +5,8 @@ let __activeId = 1;
 
 window.switchRibbon = (tabId, event) => {
   document.querySelectorAll('.tool-group').forEach(g => g.classList.remove('show'));
-  document.getElementById(`group-${tabId}`).classList.add('show');
+  const target = document.getElementById(`group-${tabId}`);
+  if(target) target.classList.add('show');
   document.querySelectorAll('.ribbon-tab').forEach(t => t.classList.remove('active'));
   event.currentTarget.classList.add('active');
 };
@@ -16,17 +17,16 @@ require(['vs/editor/editor.main'], function () {
     theme: 'vs-dark',
     automaticLayout: true,
     fontSize: 14,
-    // VS CODE GHOST TEXT & SUGGESTIONS
+    // VS Code Style Features
     inlineSuggest: { enabled: true },
     suggestOnTriggerCharacters: true,
-    quickSuggestions: { other: true, comments: true, strings: true },
-    parameterHints: { enabled: true },
-    formatOnPaste: true,
-    formatOnType: true
+    quickSuggestions: true,
+    parameterHints: { enabled: true }
   });
   
   loadToEditor();
   renderTabs();
+  initButtons(); // Link buttons after editor is ready
 });
 
 function renderTabs() {
@@ -51,13 +51,29 @@ function loadToEditor() {
   const f = __files.find(x => x.id === __activeId);
   if(window.editor && f) {
     window.editor.setValue(f.content);
-    // Auto-detect language for syntax highlighting
-    const lang = f.name.endsWith('.html') ? 'html' : f.name.endsWith('.js') ? 'javascript' : 'python';
+    const lang = f.name.endsWith('.html') ? 'html' : 'javascript';
     monaco.editor.setModelLanguage(window.editor.getModel(), lang);
   }
 }
 
-// Resizer logic
+function initButtons() {
+  document.getElementById('new-file').onclick = () => {
+    const name = prompt("Filename:");
+    if (!name) return;
+    const id = Date.now();
+    __files.push({ id, name, lang: name.endsWith('.html') ? 'html' : 'javascript', content: '' });
+    __activeId = id;
+    renderTabs(); loadToEditor();
+  };
+
+  document.getElementById('save-disk').onclick = () => {
+    saveActive();
+    localStorage.setItem('nebula_v2_files', JSON.stringify(__files));
+    printTerminal("[SYS] Changes committed to Gdevlop storage.", "success");
+  };
+}
+
+// Resizer Logic
 const splitter = document.getElementById('splitter');
 const preview = document.getElementById('preview-panel');
 const workspace = document.querySelector('.workspace');
