@@ -22,9 +22,36 @@
 
   <div class="ribbon-actions">
     <select id="lang" class="ribbon-select">
-      <option value="html">Web (HTML/CSS/JS)</option>
-      <option value="63">Node.js</option>
-      <option value="71">Python</option>
+      <optgroup label="Web & Node">
+        <option value="html">Web (HTML/CSS/JS)</option>
+        <option value="63">Node.js (12.14.0)</option>
+        <option value="74">TypeScript (3.7.4)</option>
+      </optgroup>
+      <optgroup label="Systems">
+        <option value="48">C (GCC 7.4.0)</option>
+        <option value="52">C++ (GCC 7.4.0)</option>
+        <option value="54">C++ (GCC 9.2.0)</option>
+        <option value="73">Rust (1.40.0)</option>
+        <option value="60">Go (1.13.5)</option>
+      </optgroup>
+      <optgroup label="High-Level">
+        <option value="71">Python (3.8.1)</option>
+        <option value="62">Java (OpenJDK 13.0.1)</option>
+        <option value="51">C# (Mono 6.6.0.161)</option>
+        <option value="68">PHP (7.4.1)</option>
+        <option value="72">Ruby (2.7.0)</option>
+      </optgroup>
+      <optgroup label="Data & Sci">
+        <option value="80">R (4.0.0)</option>
+        <option value="78">SQLite (3.31.1)</option>
+        <option value="64">Lua (5.3.5)</option>
+      </optgroup>
+      <optgroup label="Legacy">
+        <option value="45">Assembly (NASM 2.14.02)</option>
+        <option value="47">Basic (FBC 1.07.1)</option>
+        <option value="55">COBOL (GnuCOBOL 2.2)</option>
+        <option value="59">Fortran (GFortran 9.2.0)</option>
+      </optgroup>
     </select>
     <button id="run-btn" class="btn-primary">DEPLOY & RUN</button>
   </div>
@@ -32,20 +59,21 @@
 
 <div class="tool-bar">
   <div id="group-workspace" class="tool-group show">
-    <button id="new-file">New Module</button>
-    <button id="save-disk">Commit Changes</button>
+    <button id="new-file" class="btn-tool">New Module</button>
+    <button id="save-disk" class="btn-tool">Commit Changes</button>
   </div>
   <div id="group-ai-core" class="tool-group">
-    <input id="ai-key" type="password" placeholder="API Key">
-    <button id="save-key">Auth</button>
+    <input id="ai-key" type="password" placeholder="Gemini Key">
+    <button id="save-key" class="btn-tool">Auth</button>
   </div>
   <div id="group-view" class="tool-group">
-    <button onclick="togglePreview()">Live Overlay</button>
+    <button onclick="togglePreview()" class="btn-tool">Toggle Preview</button>
   </div>
 </div>
 
 <main class="workspace">
-  <div class="editor-container" id="editor-cont">
+  <div class="editor-container">
+    <div id="file-tabs" class="tabs-row"></div>
     <div id="editor"></div>
   </div>
   
