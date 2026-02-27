@@ -6,11 +6,15 @@ window.starterSnippets = {
   47: "PRINT \"BASIC READY\"\nEND"
 };
 
-const runBtn = document.getElementById("run-btn-main");
+// Updated to match id="run-btn" in index.html
+const runBtn = document.getElementById("run-btn");
+
 if (runBtn) {
   runBtn.onclick = async () => {
     const code = window.editor.getValue();
-    const langSelect = document.getElementById("lang-select");
+    
+    // Updated to match id="lang" in index.html
+    const langSelect = document.getElementById("lang");
     const langVal = langSelect ? langSelect.value : "html";
 
     printTerminal(`[RUNTIME] Deploying: ${langVal}`, "info");
