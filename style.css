@@ -1,53 +1,38 @@
 :root {
   --bg: #0d1117; --panel: #161b22; --border: #30363d;
-  --accent: #58a6ff; --text: #c9d1d9;
+  --accent: #58a6ff; --text: #c9d1d9; --btn-bg: #21262d;
 }
 
-body {
-  margin: 0; height: 100vh; display: flex; flex-direction: column;
-  background: var(--bg); color: var(--text); font-family: sans-serif; overflow: hidden;
-}
+body { margin: 0; height: 100vh; display: flex; flex-direction: column; background: var(--bg); color: var(--text); font-family: sans-serif; overflow: hidden; }
 
 .ribbon { height: 50px; background: var(--panel); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; }
-.ribbon-tabs { flex: 1; display: flex; justify-content: center; }
-.ribbon-tab { background: none; border: none; color: #8b949e; padding: 10px 20px; cursor: pointer; }
+.ribbon-tab { background: none; border: none; color: #8b949e; padding: 10px 15px; cursor: pointer; }
 .ribbon-tab.active { color: #fff; border-bottom: 2px solid var(--accent); }
 
 .tool-bar { height: 45px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; gap: 10px; }
 .tool-group { display: none; }
 .tool-group.show { display: flex; gap: 10px; }
 
-.workspace {
-  flex: 1; display: flex; position: relative; overflow: hidden;
-  background: #1e1e1e;
-}
+/* BUTTON STYLING */
+.btn-tool { background: var(--btn-bg); color: var(--text); border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+.btn-tool:hover { background: #30363d; }
+.btn-primary { background: #238636; color: #fff; border: 1px solid rgba(240,246,252,0.1); padding: 5px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+.btn-primary:hover { background: #2ea043; }
 
-.editor-container {
-  flex: 1; min-width: 200px; height: calc(100% - 200px);
-}
+.workspace { flex: 1; display: flex; position: relative; overflow: hidden; }
+.editor-container { flex: 1; display: flex; flex-direction: column; min-width: 200px; height: calc(100% - 200px); }
+.tabs-row { display: flex; background: var(--panel); border-bottom: 1px solid var(--border); height: 35px; }
+.file-tab { padding: 8px 15px; font-size: 12px; border-right: 1px solid var(--border); cursor: pointer; color: #8b949e; }
+.file-tab.active { background: var(--bg); color: #fff; border-top: 1px solid var(--accent); }
 
-#editor { height: 100%; width: 100%; }
+#editor { flex: 1; width: 100%; }
+.resizer { width: 8px; cursor: col-resize; background: #2d2d2d; z-index: 10; }
 
-.resizer {
-  width: 10px; cursor: col-resize; background: #2d2d2d;
-  border-left: 1px solid var(--border); border-right: 1px solid var(--border);
-}
-
-#preview-panel {
-  width: 400px; min-width: 0; background: #fff; display: flex; flex-direction: column;
-  height: calc(100% - 200px);
-}
-
+#preview-panel { width: 400px; background: #fff; display: flex; flex-direction: column; height: calc(100% - 200px); }
 .preview-hidden { display: none !important; }
+#web-viewer { flex: 1; border: none; }
 
-#web-viewer { flex: 1; border: none; width: 100%; }
-
-.terminal-container {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 200px; background: #000; border-top: 1px solid var(--border);
-  display: flex; flex-direction: column; z-index: 100;
-}
-
-.terminal-body { flex: 1; padding: 10px; font-family: monospace; overflow-y: auto; color: #fff; }
-.input-line { display: flex; padding: 5px; background: #111; }
+.terminal-container { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: #000; border-top: 1px solid var(--border); display: flex; flex-direction: column; z-index: 100; }
+.terminal-body { flex: 1; padding: 10px; font-family: monospace; font-size: 12px; overflow-y: auto; }
+.input-line { display: flex; padding: 5px 10px; background: #111; }
 #term-input { background: transparent; border: none; color: #fff; flex: 1; outline: none; }
