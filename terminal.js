@@ -23,8 +23,8 @@ termInput.addEventListener('keydown', async (e) => {
     switch (cmd.toLowerCase()) {
       case 'ls': printTerminal("index.html  main.js  Gdevlop/  node_modules/"); break;
       case 'npm':
-        printTerminal(`[SYS] Fetching ${args[1]}...`, "info");
-        setTimeout(() => printTerminal(`+ ${args[1]}@latest`, "success"), 1000);
+        printTerminal(`[SYS] Fetching ${args[1] || 'package'}...`, "info");
+        setTimeout(() => printTerminal(`+ ${args[1] || 'package'}@latest`, "success"), 1000);
         break;
       case 'ai':
         const res = await window.ask(args.join(' '));
