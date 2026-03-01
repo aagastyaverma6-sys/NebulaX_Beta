@@ -1,9 +1,17 @@
+window.starterSnippets = {
+  html: "<!DOCTYPE html>\n<html>\n<body>\n  <h1>Nebula Ready</h1>\n</body>\n</html>",
+  63: "console.log('Node Runtime Ready');",
+  71: "print('Python Ready')",
+  54: "#include <iostream>\nint main() { std::cout << \"C++ Active\"; return 0; }",
+  47: "PRINT \"BASIC READY\"\nEND"
+};
+
 const runBtn = document.getElementById("run-btn-main");
 if (runBtn) {
   runBtn.onclick = async () => {
     const code = window.editor.getValue();
-    const langSelect = document.getElementById("lang");
-    const langVal = langSelect.value;
+    const langSelect = document.getElementById("lang-select");
+    const langVal = langSelect ? langSelect.value : "html";
 
     printTerminal(`[RUNTIME] Deploying: ${langVal}`, "info");
 
@@ -11,7 +19,7 @@ if (runBtn) {
       const doc = document.getElementById("web-viewer").contentDocument;
       document.getElementById("preview-panel").classList.remove("preview-hidden");
       doc.open(); doc.write(code); doc.close();
-      printTerminal("[RUNTIME] Render Successful.", "success");
+      printTerminal("[RUNTIME] Successful render.", "success");
       return;
     }
 
@@ -20,7 +28,7 @@ if (runBtn) {
       if (res.stdout) printTerminal(res.stdout, "success");
       if (res.stderr) {
           printTerminal(res.stderr, "error");
-          printTerminal("[SYS] Suggestion: Use 'AI Fix Ghost' to repair errors.", "info");
+          printTerminal("[SYS] Use 'AI Fix Ghost' to resolve these errors.", "info");
       }
       printTerminal(`[RUNTIME] Status: ${res.status.description}`);
     } catch (e) {
@@ -29,6 +37,4 @@ if (runBtn) {
   };
 }
 
-function togglePreview() {
-    document.getElementById("preview-panel").classList.toggle("preview-hidden");
-}
+window.togglePreview = () => document.getElementById("preview-panel").classList.toggle("preview-hidden");
