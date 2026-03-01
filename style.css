@@ -4,30 +4,22 @@
 }
 body { margin: 0; height: 100vh; display: flex; flex-direction: column; background: var(--bg); color: var(--text); font-family: sans-serif; overflow: hidden; }
 
-/* Ghost UI */
-.ghost-controls {
-    position: absolute; bottom: 20px; right: 20px; z-index: 1000;
-    background: var(--panel); border: 1px solid var(--accent);
-    padding: 10px; border-radius: 8px; display: none; align-items: center; gap: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
+/* Ghost UI & Modals */
+.ghost-controls { position: absolute; bottom: 20px; right: 20px; z-index: 1000; background: var(--panel); border: 1px solid var(--accent); padding: 10px; border-radius: 8px; display: none; align-items: center; gap: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
 .ghost-text-decoration { color: #6a737d !important; font-style: italic; background: rgba(88, 166, 255, 0.1); }
-
-/* Modal Library */
-.modal-overlay {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8); z-index: 2000; display: none; justify-content: center; align-items: center;
-}
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: none; justify-content: center; align-items: center; }
 .prompt-card { background: var(--panel); padding: 20px; border-radius: 8px; border: 1px solid var(--border); width: 400px; }
 .prompt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-.prompt-item { background: #1c2128; border: 1px solid var(--border); padding: 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.prompt-item { background: #1c2128; border: 1px solid var(--border); padding: 10px; border-radius: 4px; cursor: pointer; font-size: 11px; }
 .prompt-item:hover { border-color: var(--accent); }
 
-/* Workspace UI */
-.ribbon { height: 60px; background: var(--panel); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; justify-content: space-between; }
-.ribbon-tabs { display: flex; gap: 5px; }
-.ribbon-tab { background: none; border: none; color: #8b949e; padding: 10px 15px; cursor: pointer; }
-.ribbon-tab.active { color: #fff; border-bottom: 2px solid var(--accent); }
+/* IDE Shell */
+.ribbon { height: 50px; background: var(--panel); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; justify-content: space-between; }
+.brand-text { font-weight: bold; color: #fff; margin-left: 10px; }
+.brand-text span { color: var(--accent); font-size: 10px; }
+.ribbon-tabs { display: flex; height: 100%; }
+.ribbon-tab { background: none; border: none; color: #8b949e; padding: 0 15px; cursor: pointer; height: 100%; border-bottom: 2px solid transparent; }
+.ribbon-tab.active { color: #fff; border-bottom-color: var(--accent); }
 .tool-bar { height: 45px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; }
 .tool-group { display: none; gap: 10px; }
 .tool-group.show { display: flex; }
@@ -37,11 +29,14 @@ body { margin: 0; height: 100vh; display: flex; flex-direction: column; backgrou
 .file-tab.active { background: var(--bg); border-top: 2px solid var(--accent); }
 .editor-container { flex: 1; display: flex; position: relative; }
 #editor { flex: 1; }
-#preview-panel { width: 40%; background: #fff; border-left: 2px solid var(--border); }
-.preview-hidden { display: none; }
+#preview-panel { width: 45%; background: #fff; border-left: 2px solid var(--border); display: flex; flex-direction: column; }
+.preview-hidden { display: none !important; }
+#web-viewer { flex: 1; border: none; }
 .terminal-container { height: 180px; background: #000; border-top: 1px solid var(--border); display: flex; flex-direction: column; }
-.terminal-body { flex: 1; padding: 10px; font-family: monospace; font-size: 12px; overflow-y: auto; }
-.input-line { display: flex; padding: 5px 10px; background: #050505; }
-#term-input { background: transparent; border: none; color: #fff; flex: 1; outline: none; margin-left: 10px; }
-button { background: #21262d; border: 1px solid var(--border); color: #fff; padding: 5px 12px; border-radius: 4px; cursor: pointer; }
+.terminal-body { flex: 1; padding: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; overflow-y: auto; color: #d1d5db; }
+.input-line { display: flex; padding: 5px 10px; background: #050505; align-items: center; }
+.prompt { color: var(--success); font-weight: bold; margin-right: 10px; }
+#term-input { background: transparent; border: none; color: #fff; flex: 1; outline: none; }
+button { background: #21262d; border: 1px solid var(--border); color: #fff; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
 .btn-primary { background: var(--success); font-weight: bold; border: none; }
+.ribbon-select { background: #21262d; color: #fff; border: 1px solid var(--border); padding: 4px; border-radius: 4px; margin-right: 10px; }
