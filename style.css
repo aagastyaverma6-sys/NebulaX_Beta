@@ -1,37 +1,47 @@
 :root {
   --bg: #0d1117; --panel: #161b22; --border: #30363d;
-  --accent: #58a6ff; --text: #c9d1d9; --btn-bg: #21262d;
+  --accent: #58a6ff; --text: #c9d1d9; --success: #238636;
 }
-
 body { margin: 0; height: 100vh; display: flex; flex-direction: column; background: var(--bg); color: var(--text); font-family: sans-serif; overflow: hidden; }
 
-.ribbon { height: 50px; background: var(--panel); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; }
+/* Ghost UI */
+.ghost-controls {
+    position: absolute; bottom: 20px; right: 20px; z-index: 1000;
+    background: var(--panel); border: 1px solid var(--accent);
+    padding: 10px; border-radius: 8px; display: none; align-items: center; gap: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.ghost-text-decoration { color: #6a737d !important; font-style: italic; background: rgba(88, 166, 255, 0.1); }
+
+/* Modal Library */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); z-index: 2000; display: none; justify-content: center; align-items: center;
+}
+.prompt-card { background: var(--panel); padding: 20px; border-radius: 8px; border: 1px solid var(--border); width: 400px; }
+.prompt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+.prompt-item { background: #1c2128; border: 1px solid var(--border); padding: 10px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+.prompt-item:hover { border-color: var(--accent); }
+
+/* Workspace UI */
+.ribbon { height: 60px; background: var(--panel); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; justify-content: space-between; }
+.ribbon-tabs { display: flex; gap: 5px; }
 .ribbon-tab { background: none; border: none; color: #8b949e; padding: 10px 15px; cursor: pointer; }
 .ribbon-tab.active { color: #fff; border-bottom: 2px solid var(--accent); }
-
-.tool-bar { height: 45px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; gap: 10px; }
-.tool-group { display: none; }
-.tool-group.show { display: flex; gap: 10px; }
-
-/* Fixed Button Colors */
-.btn-tool { background: var(--btn-bg); color: var(--text); border: 1px solid var(--border); padding: 5px 12px; border-radius: 6px; cursor: pointer; }
-.btn-tool:hover { background: #30363d; }
-.btn-primary { background: #238636; color: #fff; border: 1px solid var(--border); padding: 5px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-
-.workspace { flex: 1; display: flex; position: relative; overflow: hidden; }
-.editor-side { flex: 1; display: flex; flex-direction: column; min-width: 200px; height: calc(100% - 200px); }
-.tabs-row { display: flex; background: var(--panel); height: 35px; border-bottom: 1px solid var(--border); }
-.file-tab { padding: 8px 15px; font-size: 12px; border-right: 1px solid var(--border); cursor: pointer; }
-.file-tab.active { background: var(--bg); color: var(--accent); }
-
-#editor { flex: 1; width: 100%; }
-.resizer { width: 8px; cursor: col-resize; background: #2d2d2d; z-index: 10; border: 1px solid var(--border); }
-
-#preview-panel { width: 400px; background: #fff; display: flex; flex-direction: column; height: calc(100% - 200px); }
-.preview-hidden { display: none !important; }
-#web-viewer { flex: 1; border: none; }
-
-.terminal-container { position: absolute; bottom: 0; left: 0; right: 0; height: 200px; background: #000; border-top: 1px solid var(--border); display: flex; flex-direction: column; z-index: 100; }
+.tool-bar { height: 45px; background: var(--bg); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 15px; }
+.tool-group { display: none; gap: 10px; }
+.tool-group.show { display: flex; }
+.workspace { flex: 1; display: flex; flex-direction: column; min-height: 0; position: relative; }
+.tabs-row { display: flex; background: var(--panel); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.file-tab { padding: 8px 15px; font-size: 12px; border-right: 1px solid var(--border); cursor: pointer; white-space: nowrap; }
+.file-tab.active { background: var(--bg); border-top: 2px solid var(--accent); }
+.editor-container { flex: 1; display: flex; position: relative; }
+#editor { flex: 1; }
+#preview-panel { width: 40%; background: #fff; border-left: 2px solid var(--border); }
+.preview-hidden { display: none; }
+.terminal-container { height: 180px; background: #000; border-top: 1px solid var(--border); display: flex; flex-direction: column; }
 .terminal-body { flex: 1; padding: 10px; font-family: monospace; font-size: 12px; overflow-y: auto; }
-.input-line { display: flex; padding: 5px 10px; background: #111; }
-#term-input { background: transparent; border: none; color: #fff; flex: 1; outline: none; }
+.input-line { display: flex; padding: 5px 10px; background: #050505; }
+#term-input { background: transparent; border: none; color: #fff; flex: 1; outline: none; margin-left: 10px; }
+button { background: #21262d; border: 1px solid var(--border); color: #fff; padding: 5px 12px; border-radius: 4px; cursor: pointer; }
+.btn-primary { background: var(--success); font-weight: bold; border: none; }
