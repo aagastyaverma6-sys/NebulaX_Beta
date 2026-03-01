@@ -15,7 +15,7 @@ async function runOnJudge0(code, languageId, stdin = "") {
     body: JSON.stringify(payload)
   });
 
-  if (!submitResp.ok) throw new Error("Judge0 submit failed: " + submitResp.status);
+  if (!submitResp.ok) throw new Error("Judge0 failed: " + submitResp.status);
   const { token } = await submitResp.json();
 
   while (true) {
