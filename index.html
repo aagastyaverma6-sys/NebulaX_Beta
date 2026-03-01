@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>Nebula Pro | Enterprise IDE</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+  <script src="vs/loader.js"></script>
 </head>
 <body>
 
@@ -24,65 +24,49 @@
     <select id="lang" class="ribbon-select">
       <optgroup label="Web & Node">
         <option value="html">Web (HTML/CSS/JS)</option>
-        <option value="63">Node.js (12.14.0)</option>
-        <option value="74">TypeScript (3.7.4)</option>
-      </optgroup>
-      <optgroup label="Systems (C/C++/Rust)">
-        <option value="48">C (GCC 7.4.0)</option>
-        <option value="52">C++ (GCC 7.4.0)</option>
-        <option value="54">C++ (GCC 9.2.0)</option>
-        <option value="73">Rust (1.40.0)</option>
-        <option value="60">Go (1.13.5)</option>
+        <option value="63">Node.js</option>
       </optgroup>
       <optgroup label="High-Level">
-        <option value="71">Python (3.8.1)</option>
-        <option value="62">Java (OpenJDK 13.0.1)</option>
-        <option value="51">C# (Mono 6.6.0.161)</option>
-        <option value="68">PHP (7.4.1)</option>
-        <option value="72">Ruby (2.7.0)</option>
-      </optgroup>
-      <optgroup label="Others">
-        <option value="80">R (4.0.0)</option>
-        <option value="78">SQLite (3.31.1)</option>
-        <option value="47">Basic (FBC 1.07.1)</option>
+        <option value="71">Python</option>
+        <option value="62">Java</option>
+        <option value="51">C#</option>
       </optgroup>
     </select>
-    <button id="run-btn" class="btn-primary">DEPLOY & RUN</button>
+    <button id="run-btn-main" class="btn-primary">DEPLOY & RUN</button>
   </div>
 </header>
 
 <div class="tool-bar">
   <div id="group-workspace" class="tool-group show">
-    <button id="new-file" class="btn-tool">New Module</button>
-    <button id="save-disk" class="btn-tool">Commit Changes</button>
+    <button id="new-file">New Module</button>
+    <button id="save-disk">Commit Changes</button>
   </div>
   <div id="group-ai-core" class="tool-group">
     <input id="ai-key" type="password" placeholder="Gemini Key">
-    <button id="save-key" class="btn-tool">Auth</button>
+    <button id="save-key">Auth</button>
+    <button onclick="fixCodeWithAI()" style="background:#8e44ad">✨ AI Fix Ghost</button>
+    <button onclick="openPromptLibrary()">Prompt Library</button>
   </div>
   <div id="group-view" class="tool-group">
-    <button onclick="togglePreview()" class="btn-tool">Toggle Preview</button>
+    <button onclick="togglePreview()">Live Overlay</button>
   </div>
 </div>
 
 <main class="workspace">
-  <div class="editor-side">
-    <div id="file-tabs" class="tabs-row"></div>
+  <div id="file-tabs" class="tabs-row"></div>
+  <div class="editor-container">
     <div id="editor"></div>
-  </div>
-  
-  <div class="resizer" id="splitter"></div>
-
-  <div id="preview-panel" class="preview-hidden">
-    <div class="preview-header">LIVE INSTANCE</div>
-    <iframe id="web-viewer"></iframe>
+    <div id="ghost-ui" class="ghost-controls">
+        <span>AI Suggestion Ready:</span>
+        <button onclick="acceptGhostCode()" class="btn-primary">Accept</button>
+        <button onclick="discardGhostCode()" style="background:#da3633">Discard</button>
+    </div>
+    <div id="preview-panel" class="preview-hidden">
+      <iframe id="web-viewer"></iframe>
+    </div>
   </div>
 
   <div class="terminal-container">
-    <div class="terminal-bar">
-      <div class="term-title">NEBULA SHELL</div>
-      <span class="term-clear" onclick="clearTerminal()">Flush Logs</span>
-    </div>
     <div class="terminal-body" id="term-content"></div>
     <div class="input-line">
       <span class="prompt">nebula@root:~$</span>
@@ -90,6 +74,21 @@
     </div>
   </div>
 </main>
+
+<!-- Prompt Library Overlay -->
+<div id="prompt-overlay" class="modal-overlay">
+  <div class="prompt-card">
+    <h3>Nebula Prompt Library</h3>
+    <div class="prompt-grid">
+      <div class="prompt-item" onclick="applySuggestedPrompt('Create a responsive navigation bar with CSS and JS')">Responsive Nav</div>
+      <div class="prompt-item" onclick="applySuggestedPrompt('Write a Javascript Fetch API example with async/await')">Fetch API Logic</div>
+      <div class="prompt-item" onclick="applySuggestedPrompt('Create a modern dark mode CSS theme')">Dark Theme</div>
+      <div class="prompt-item" onclick="applySuggestedPrompt('Implement a debounce function in Javascript')">Debounce Util</div>
+      <div class="prompt-item" onclick="applySuggestedPrompt('Write a Python script to parse JSON from a URL')">Python JSON Parse</div>
+    </div>
+    <button onclick="document.getElementById('prompt-overlay').style.display='none'" style="width:100%; margin-top:10px;">Close</button>
+  </div>
+</div>
 
 <script src="terminal.js"></script>
 <script src="judge0.js"></script>
