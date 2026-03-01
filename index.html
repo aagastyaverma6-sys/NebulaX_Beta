@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Nebula Pro | Enterprise IDE</title>
+  <title>Nebula Pro v2.5 | Enterprise IDE</title>
   <link rel="stylesheet" href="style.css">
   <script src="vs/loader.js"></script>
 </head>
@@ -21,15 +21,29 @@
   </nav>
 
   <div class="ribbon-actions">
-    <select id="lang" class="ribbon-select">
-      <optgroup label="Web & Node">
-        <option value="html">Web (HTML/CSS/JS)</option>
-        <option value="63">Node.js</option>
+    <select id="lang-select" class="ribbon-select">
+      <option value="html">Web (HTML/CSS/JS)</option>
+      <optgroup label="Popular">
+        <option value="71">Python (3.8.1)</option>
+        <option value="63">Node.js (12.14.0)</option>
+        <option value="54">C++ (GCC 9.2.0)</option>
+        <option value="62">Java (OpenJDK 13.0.1)</option>
+        <option value="73">Rust (1.40.0)</option>
       </optgroup>
-      <optgroup label="High-Level">
-        <option value="71">Python</option>
-        <option value="62">Java</option>
-        <option value="51">C#</option>
+      <optgroup label="Full Stack & Systems">
+        <option value="50">C (GCC 9.2.0)</option>
+        <option value="51">C# (Mono 6.6.0.161)</option>
+        <option value="60">Go (1.13.5)</option>
+        <option value="68">PHP (7.4.1)</option>
+        <option value="72">Ruby (2.7.0)</option>
+        <option value="74">TypeScript (3.7.4)</option>
+      </optgroup>
+      <optgroup label="Data & Legacy">
+        <option value="80">R (4.0.0)</option>
+        <option value="78">SQLite (3.31.1)</option>
+        <option value="45">Assembly (NASM 2.14.02)</option>
+        <option value="47">Basic (FBC 1.07.1)</option>
+        <option value="59">Fortran (GFortran 9.2.0)</option>
       </optgroup>
     </select>
     <button id="run-btn-main" class="btn-primary">DEPLOY & RUN</button>
@@ -42,7 +56,7 @@
     <button id="save-disk">Commit Changes</button>
   </div>
   <div id="group-ai-core" class="tool-group">
-    <input id="ai-key" type="password" placeholder="Gemini Key">
+    <input id="ai-key" type="password" placeholder="Gemini API Key">
     <button id="save-key">Auth</button>
     <button onclick="fixCodeWithAI()" style="background:#8e44ad">✨ AI Fix Ghost</button>
     <button onclick="openPromptLibrary()">Prompt Library</button>
@@ -57,7 +71,7 @@
   <div class="editor-container">
     <div id="editor"></div>
     <div id="ghost-ui" class="ghost-controls">
-        <span>AI Suggestion Ready:</span>
+        <span>AI Suggestion:</span>
         <button onclick="acceptGhostCode()" class="btn-primary">Accept</button>
         <button onclick="discardGhostCode()" style="background:#da3633">Discard</button>
     </div>
@@ -66,7 +80,7 @@
     </div>
   </div>
 
-  <div class="terminal-container">
+  <div class="terminal-container" onclick="document.getElementById('term-input').focus()">
     <div class="terminal-body" id="term-content"></div>
     <div class="input-line">
       <span class="prompt">nebula@root:~$</span>
@@ -75,16 +89,14 @@
   </div>
 </main>
 
-<!-- Prompt Library Overlay -->
 <div id="prompt-overlay" class="modal-overlay">
   <div class="prompt-card">
     <h3>Nebula Prompt Library</h3>
     <div class="prompt-grid">
-      <div class="prompt-item" onclick="applySuggestedPrompt('Create a responsive navigation bar with CSS and JS')">Responsive Nav</div>
-      <div class="prompt-item" onclick="applySuggestedPrompt('Write a Javascript Fetch API example with async/await')">Fetch API Logic</div>
-      <div class="prompt-item" onclick="applySuggestedPrompt('Create a modern dark mode CSS theme')">Dark Theme</div>
-      <div class="prompt-item" onclick="applySuggestedPrompt('Implement a debounce function in Javascript')">Debounce Util</div>
-      <div class="prompt-item" onclick="applySuggestedPrompt('Write a Python script to parse JSON from a URL')">Python JSON Parse</div>
+      <div class="prompt-item" onclick="applySuggestedPrompt('Create a responsive navigation bar')">Navbar Template</div>
+      <div class="prompt-item" onclick="applySuggestedPrompt('Write a Fetch API example with error handling')">Fetch API Logic</div>
+      <div class="prompt-item" onclick="applySuggestedPrompt('Create a centered hero section')">Hero Section</div>
+      <div class="prompt-item" onclick="applySuggestedPrompt('Implement a debounce function')">JS Debounce</div>
     </div>
     <button onclick="document.getElementById('prompt-overlay').style.display='none'" style="width:100%; margin-top:10px;">Close</button>
   </div>
@@ -92,8 +104,8 @@
 
 <script src="terminal.js"></script>
 <script src="judge0.js"></script>
-<script src="run.js"></script>
 <script src="ai-pro.js"></script>
+<script src="run.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
