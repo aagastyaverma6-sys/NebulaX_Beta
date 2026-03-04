@@ -8,7 +8,7 @@ window.ask = async (prompt) => {
     throw new Error('key_missing');
   }
 
-  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`;
+  const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${key}`;
   const proxyBase = sessionStorage.getItem('nebula_ai_proxy')?.trim();
   const requestBody = JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] });
 
