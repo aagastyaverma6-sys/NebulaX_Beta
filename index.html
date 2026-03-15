@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8">
   <title>Nebula Pro v2.5 | Enterprise IDE</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2712%27 fill=%27%23161b22%27/%3E%3Ctext x=%2732%27 y=%2742%27 font-size=%2734%27 text-anchor=%27middle%27 fill=%27%2358a6ff%27 font-family=%27Arial,sans-serif%27%3EN%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="style.css">
   <script src="vs/loader.js"></script>
 </head>
 <body>
+  <!-- noop: pages rebuild trigger -->
 
 <header class="ribbon">
   <div class="ribbon-brand">
@@ -17,6 +19,7 @@
   <nav class="ribbon-tabs">
     <button class="ribbon-tab active" onclick="switchRibbon('workspace', event)">Workspace</button>
     <button class="ribbon-tab" onclick="switchRibbon('ai-core', event)">AI Engine</button>
+    <button class="ribbon-tab" onclick="switchRibbon('tools', event)">Power Tools</button>
     <button class="ribbon-tab" onclick="switchRibbon('view', event)">Preview</button>
   </nav>
 
@@ -54,22 +57,41 @@
   <div id="group-workspace" class="tool-group show">
     <button id="new-file">New Module</button>
     <button id="save-disk">Commit Changes</button>
+    <button id="rename-file">Rename</button>
+    <button id="delete-file">Delete</button>
   </div>
   <div id="group-ai-core" class="tool-group">
     <input id="ai-key" type="password" placeholder="Gemini API Key">
     <button id="save-key">Auth</button>
+    <input id="ai-proxy" type="text" placeholder="Optional AI Proxy URL (for CORS)">
+    <button id="save-proxy">Save Proxy</button>
     <button onclick="fixCodeWithAI()" style="background:#8e44ad">✨ AI Fix Ghost</button>
     <button onclick="openPromptLibrary()">Prompt Library</button>
+    <button onclick="summarizeCodeWithAI()">Summarize</button>
+    <button onclick="generateTestsWithAI()">Generate Tests</button>
+  </div>
+  <div id="group-tools" class="tool-group">
+    <input id="tool-search" placeholder="Find from 40+ dev tools" />
+    <button onclick="openCommandPalette()">Open Palette</button>
+    <button onclick="runToolById('zen-mode')">Zen Mode</button>
+    <button onclick="runToolById('format-document')">Format</button>
+    <button onclick="runToolById('sort-lines')">Sort Lines</button>
+    <button onclick="runToolById('open-settings-json')">Settings JSON</button>
   </div>
   <div id="group-view" class="tool-group">
     <button onclick="togglePreview()">Live Overlay</button>
+    <button onclick="toggleZenMode()">Zen Mode</button>
+    <button onclick="resetLayout()">Reset Layout</button>
   </div>
 </div>
 
 <main class="workspace">
   <div id="file-tabs" class="tabs-row"></div>
   <div class="editor-container">
-    <div id="editor"></div>
+    <div id="editor-pane">
+      <div id="editor"></div>
+    </div>
+    <div id="vertical-resizer" class="resizer resizer-vertical" title="Drag to resize editor and preview"></div>
     <div id="ghost-ui" class="ghost-controls">
         <span>AI Suggestion:</span>
         <button onclick="acceptGhostCode()" class="btn-primary">Accept</button>
@@ -80,6 +102,8 @@
     </div>
   </div>
 
+  <div id="horizontal-resizer" class="resizer resizer-horizontal" title="Drag to resize editor and terminal"></div>
+
   <div class="terminal-container" onclick="document.getElementById('term-input').focus()">
     <div class="terminal-body" id="term-content"></div>
     <div class="input-line">
@@ -87,6 +111,7 @@
       <input type="text" id="term-input" spellcheck="false" autocomplete="off">
     </div>
   </div>
+  <div class="status-bar" id="status-bar">Ready</div>
 </main>
 
 <div id="prompt-overlay" class="modal-overlay">
@@ -99,6 +124,15 @@
       <div class="prompt-item" onclick="applySuggestedPrompt('Implement a debounce function')">JS Debounce</div>
     </div>
     <button onclick="document.getElementById('prompt-overlay').style.display='none'" style="width:100%; margin-top:10px;">Close</button>
+  </div>
+</div>
+
+<div id="palette-overlay" class="modal-overlay">
+  <div class="prompt-card palette-card">
+    <h3>Nebula Command Palette</h3>
+    <input id="palette-input" placeholder="Type a tool name..." />
+    <div id="palette-list" class="palette-list"></div>
+    <button onclick="closeCommandPalette()" style="width:100%; margin-top:10px;">Close</button>
   </div>
 </div>
 
